@@ -28,7 +28,7 @@ class UploadController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|max:10240',
+            'file' => 'required|file|max:1024000',
             'password' => 'nullable|string|min:4',
         ]);
 

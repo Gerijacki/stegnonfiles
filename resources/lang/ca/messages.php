@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'info' => 'Comparteix fitxers xifrats sense registres, sense rastrejadors, sense preocupacions.',
     'upload_title' => 'Puja el teu fitxer',
     'file_label' => 'Fitxer',
     'password_label' => 'Contrasenya (opcional)',

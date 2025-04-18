@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'info' => 'Share encrypted files without logs, no trackers, no worries.',
     'upload_title' => 'Upload your file',
     'file_label' => 'File',
     'password_label' => 'Password (optional)',

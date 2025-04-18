@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'info' => 'Comparte archivos cifrados sin registros, sin rastreadores, sin preocupaciones.',
     'upload_title' => 'Sube tu archivo',
     'file_label' => 'Archivo',
     'password_label' => 'Contraseña (opcional)',

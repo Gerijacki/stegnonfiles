@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +9,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Estilos personalizados para el modo oscuro */
-        body {
+        html body {
             background-color: #121212;
             color: #e0e0e0;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main.container {
+            flex: 1;
         }
 
         .bg-dark-custom {
             background-color: #1c1c1c !important;
         }
 
-        .border, .shadow-sm {
+        .border,
+        .shadow-sm {
             border-color: #333 !important;
             box-shadow: none !important;
         }
 
-        .form-control, .btn, .alert {
+        .form-control,
+        .btn,
+        .alert {
             background-color: #222;
             color: #e0e0e0;
             border-color: #444;
@@ -43,11 +55,13 @@
             color: #ddd;
         }
 
-        .navbar, .footer {
+        .navbar,
+        .footer {
             background-color: #1c1c1c;
         }
     </style>
 </head>
+
 <body>
 
     <header class="navbar navbar-expand-lg navbar-dark bg-dark-custom shadow-sm">
@@ -71,11 +85,14 @@
         @yield('content')
     </main>
 
-    <footer class="footer text-center py-3 text-muted">
-        © {{ date('Y') }} StegnonFiles — Privacidad sin cuentas.
+    <footer class="footer text-center py-3 text-light bg-dark-custom">
+        © {{ date('Y') }} StegnonFiles — Privacidad sin cuentas. |
+        <a href="https://www.gerardloriz.com" target="_blank" class="text-decoration-none text-light">Mi Portfolio</a>
     </footer>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

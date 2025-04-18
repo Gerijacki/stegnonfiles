@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="mx-auto" style="max-width: 600px;">
-    <h2 class="mb-4 text-center text-light">{{ __('messages.upload_title') }}</h2>
+    
+    <div class="text-center mb-5">
+        <img src="{{ asset('logo.svg') }}" alt="StegnonFiles logo" width="70%" class="mb-3">
+        <p class="text-light">{{__('messages.info')}}</p>
+    </div>
+    
+    <h3 class="mb-4 text-center text-light">{{ __('messages.upload_title') }}</h2>
 
     <form method="POST" action="{{ route('upload.store') }}" enctype="multipart/form-data" class="border p-4 rounded bg-dark-custom shadow-sm">
         @csrf
