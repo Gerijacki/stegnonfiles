@@ -1,5 +1,5 @@
 services:
-  anonfiles:
+  stegnonfiles:
     build:
       context: ./docker
       dockerfile: Dockerfile
@@ -17,7 +17,7 @@ services:
     volumes:
       - ./:/var/www/html
     networks:
-      - anonfiles
+      - stegnonfiles
     depends_on:
       - mysql
     healthcheck:
@@ -38,11 +38,11 @@ services:
     ports:
       - 2000:3306
     networks:
-      - anonfiles
+      - stegnonfiles
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_anonfiles
+    container_name: phpmyadmin_stegnonfiles
     restart: always
     environment:
       PMA_HOST: mysql
@@ -50,10 +50,10 @@ services:
     ports:
       - "8081:80"
     networks:
-      - anonfiles
+      - stegnonfiles
     depends_on:
       - mysql
 
 networks:
-  anonfiles:
+  stegnonfiles:
     external: true
