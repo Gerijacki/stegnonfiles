@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\LocalUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/create-admin', [LocalUserController::class, 'createAdmin'])
+    ->name('create.admin');
+
 Route::get('/lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
+
 Route::get('/', [UploadController::class, 'showForm'])->name('upload.form');
 Route::post('/upload', [UploadController::class, 'upload'])->name('upload.store');
 Route::get('/upload/success/{uuid}', [UploadController::class, 'success'])->name('upload.success');
