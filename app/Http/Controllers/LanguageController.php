@@ -9,7 +9,7 @@ class LanguageController extends Controller
 {
     public function switchLang($lang)
     {
-        $availableLanguages = ['es', 'en'];
+        $availableLanguages = ['es', 'en', 'ca'];
 
         if (in_array($lang, $availableLanguages)) {
             Session::put('locale', $lang);

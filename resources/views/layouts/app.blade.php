@@ -54,6 +54,9 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">StegnonFiles</a>
             <div class="d-flex">
+                <form method="GET" action="{{ route('lang.switch', 'ca') }}" class="d-inline">
+                    <button type="submit" class="btn btn-link text-light">ca</button>
+                </form>
                 <form method="GET" action="{{ route('lang.switch', 'es') }}" class="d-inline">
                     <button type="submit" class="btn btn-link text-light">🇪🇸</button>
                 </form>
