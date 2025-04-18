@@ -6,10 +6,10 @@ use App\Models\Upload;
 use App\Services\FileEncryptionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Illuminate\Support\Facades\Response;
 
 class UploadController extends Controller
 {
@@ -29,7 +29,7 @@ class UploadController extends Controller
     {
         $request->validate([
             'file' => 'required|file|max:10240',
-            'password' => 'nullable|string|min:4'
+            'password' => 'nullable|string|min:4',
         ]);
 
         $file = $request->file('file');
@@ -84,13 +84,12 @@ class UploadController extends Controller
     {
         $upload = Upload::where('uuid', $uuid)->firstOrFail();
 
-        if (!$upload->has_password) {
+        if (! $upload->has_password) {
             return $this->downloadFile($upload);
         }
 
         return view('upload.download', compact('upload'));
     }
-
 
     public function download(Request $request, $uuid)
     {
@@ -114,7 +113,7 @@ class UploadController extends Controller
 
         return Response::make($decrypted, 200, [
             'Content-Type' => $upload->mime_type ?? 'application/octet-stream',
-            'Content-Disposition' => (new ResponseHeaderBag())->makeDisposition(
+            'Content-Disposition' => (new ResponseHeaderBag)->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $upload->original_filename ?? 'archivo_descargado'
             ),
@@ -129,7 +128,7 @@ class UploadController extends Controller
 
         return Response::make($decrypted, 200, [
             'Content-Type' => $upload->mime_type ?? 'application/octet-stream',
-            'Content-Disposition' => (new ResponseHeaderBag())->makeDisposition(
+            'Content-Disposition' => (new ResponseHeaderBag)->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $upload->original_filename ?? 'archivo_descargado'
             ),
