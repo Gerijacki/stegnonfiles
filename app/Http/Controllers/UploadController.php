@@ -83,8 +83,14 @@ class UploadController extends Controller
     public function downloadForm($uuid)
     {
         $upload = Upload::where('uuid', $uuid)->firstOrFail();
-        return view('upload.download', ['upload' => $upload]);
+
+        if (!$upload->has_password) {
+            return $this->downloadFile($upload);
+        }
+
+        return view('upload.download', compact('upload'));
     }
+
 
     public function download(Request $request, $uuid)
     {
@@ -98,13 +104,28 @@ class UploadController extends Controller
             $firstLayerData = $this->encryptor->decrypt($encryptedData, $userKey, $upload->iv_user_password);
 
             if ($firstLayerData === false) {
-                return back()->withErrors(['password' => 'Contraseña incorrecta']);
+                return back()->withErrors(['password' => __('messages.wrong_password')]);
             }
         } else {
             $firstLayerData = $encryptedData;
         }
 
         $decrypted = $this->encryptor->decrypt($firstLayerData, $fileKey, $upload->iv_base_encryption);
+
+        return Response::make($decrypted, 200, [
+            'Content-Type' => $upload->mime_type ?? 'application/octet-stream',
+            'Content-Disposition' => (new ResponseHeaderBag())->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $upload->original_filename ?? 'archivo_descargado'
+            ),
+        ]);
+    }
+
+    private function downloadFile(Upload $upload)
+    {
+        $encryptedData = Storage::get($upload->path);
+        $fileKey = base64_decode(Crypt::decrypt($upload->encryption_key));
+        $decrypted = $this->encryptor->decrypt($encryptedData, $fileKey, $upload->iv_base_encryption);
 
         return Response::make($decrypted, 200, [
             'Content-Type' => $upload->mime_type ?? 'application/octet-stream',

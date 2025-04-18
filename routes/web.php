@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UploadController;
-
+use App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +15,9 @@ use App\Http\Controllers\UploadController;
 |
 */
 
+Route::get('/lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 Route::get('/', [UploadController::class, 'showForm'])->name('upload.form');
-Route::post('/upload', [UploadController::class, 'upload'])->name('upload.upload');
+Route::post('/upload', [UploadController::class, 'upload'])->name('upload.store');
 Route::get('/upload/success/{uuid}', [UploadController::class, 'success'])->name('upload.success');
 Route::get('/download/{uuid}', [UploadController::class, 'downloadForm'])->name('upload.download.form');
 Route::post('/download/{uuid}', [UploadController::class, 'download'])->name('upload.download');
