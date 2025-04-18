@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Upload extends Model
@@ -19,10 +20,18 @@ class Upload extends Model
         'has_password',
     ];
 
-    protected static function booted()
+    protected static function boot()
     {
+        parent::boot();
+
         static::creating(function ($upload) {
             $upload->uuid = Str::uuid();
+        });
+
+        static::deleting(function ($upload) {
+            if (Storage::exists($upload->path)) {
+                Storage::delete($upload->path);
+            }
         });
     }
 }
