@@ -7,17 +7,19 @@
     <title>StegnonFiles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        html body {
-            background-color: #121212;
-            color: #e0e0e0;
+        html,
+        body {
             height: 100%;
             margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
             display: flex;
             flex-direction: column;
         }
 
         main.container {
-            flex: 1;
+            flex: 1 0 auto;
         }
 
         .bg-dark-custom {
@@ -54,8 +56,8 @@
         }
 
         .navbar,
-        .footer {
-            background-color: #1c1c1c;
+        footer.footer {
+            flex-shrink: 0;
         }
     </style>
 </head>
